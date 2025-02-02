@@ -13,7 +13,8 @@ veya switch yapısı). Nasıl bir çözüm üretirsiniz ?
 
 ÇÖZÜM
 Bir class'a bağımlı olmamak bir abstraction a bağlı olmak lazım => DIP
-if elselerden kurtulmak için ise bir her bir birim için bir service oluşturup mapte tutulan veya 5. örnekteki gibi
+if elselerden kurtulmak için ise bir her bir birim için bir service oluşturup, factory ile nesne üretilip,
+ bir map tutulup , mapte tutulan veya 5. örnekteki gibi
 5 10 snde bir cacheden okuyan bir işlemle ilerletebiliriz.
 
 ben burada live bir servis kullanmak istedim. böylece her bir currency tipi için service oluşturmayacağım.
