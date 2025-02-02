@@ -1,4 +1,4 @@
-package prob2_shipping_cost_calculator.old;
+package com.karamanmert.bpn_case.prob2_shipping_cost_calculator.old;
 
 /**
  * @author karamanmert

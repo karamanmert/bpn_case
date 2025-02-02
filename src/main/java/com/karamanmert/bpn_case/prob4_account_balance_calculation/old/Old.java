@@ -1,4 +1,4 @@
-package prob4_account_balance_calculation.old;
+package com.karamanmert.bpn_case.prob4_account_balance_calculation.old;
 
 /**
  * Problem

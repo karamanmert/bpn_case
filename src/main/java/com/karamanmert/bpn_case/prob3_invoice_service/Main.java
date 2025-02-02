@@ -1,10 +1,10 @@
-package prob3_invoice_service;
+package com.karamanmert.bpn_case.prob3_invoice_service;
 
-import prob3_invoice_service.new1.Database;
-import prob3_invoice_service.new1.DatabaseFactory;
-import prob3_invoice_service.new1.DbType;
-import prob3_invoice_service.new1.InvoiceService;
-import prob3_invoice_service.old.Invoice;
+
+import com.karamanmert.bpn_case.prob3_invoice_service.new1.Database;
+import com.karamanmert.bpn_case.prob3_invoice_service.new1.DatabaseFactory;
+import com.karamanmert.bpn_case.prob3_invoice_service.new1.DbType;
+import com.karamanmert.bpn_case.prob3_invoice_service.new1.InvoiceService;
 
 /**
  * @author karamanmert

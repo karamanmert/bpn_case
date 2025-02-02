@@ -1,6 +1,7 @@
-package prob1_calculate_price_method.new1;
+package com.karamanmert.bpn_case.prob1_calculate_price_method.new1;
 
-import prob1_calculate_price_method.Order;
+
+import com.karamanmert.bpn_case.prob1_calculate_price_method.Order;
 
 import java.util.Map;
 

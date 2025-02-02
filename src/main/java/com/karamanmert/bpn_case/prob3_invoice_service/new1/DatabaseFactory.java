@@ -1,4 +1,4 @@
-package prob3_invoice_service.new1;
+package com.karamanmert.bpn_case.prob3_invoice_service.new1;
 
 import java.util.EnumMap;
 

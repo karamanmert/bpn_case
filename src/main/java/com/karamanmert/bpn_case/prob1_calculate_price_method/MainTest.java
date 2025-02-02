@@ -1,6 +1,7 @@
-package prob1_calculate_price_method;
+package com.karamanmert.bpn_case.prob1_calculate_price_method;
 
-import prob1_calculate_price_method.new1.*;
+
+import com.karamanmert.bpn_case.prob1_calculate_price_method.new1.*;
 
 import java.util.List;
 

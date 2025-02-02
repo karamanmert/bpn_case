@@ -1,4 +1,4 @@
-package prob1_calculate_price_method.new1;
+package com.karamanmert.bpn_case.prob1_calculate_price_method.new1;
 
 /**
  * @author karamanmert

@@ -1,4 +1,4 @@
-package prob4_account_balance_calculation.new1;
+package com.karamanmert.bpn_case.prob4_account_balance_calculation.new1;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

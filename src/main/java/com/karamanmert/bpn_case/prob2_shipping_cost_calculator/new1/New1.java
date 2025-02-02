@@ -5,8 +5,6 @@ package com.karamanmert.bpn_case.prob2_shipping_cost_calculator.new1;
  */
 
 
-import static com.karamanmert.bpn_case.prob2_shipping_cost_calculator.new1.ShippingCostEnum.EU_LIGHT_FRAGILE;
-import static com.karamanmert.bpn_case.prob2_shipping_cost_calculator.new1.ShippingCostEnum.EU_LIGHT_NON_FRAGILE;
 import static com.karamanmert.bpn_case.prob2_shipping_cost_calculator.new1.ShippingCostUtil.calculateShippingCost;
 
 /**
@@ -31,12 +29,10 @@ import static com.karamanmert.bpn_case.prob2_shipping_cost_calculator.new1.Shipp
 public class New1 {
 
     private static final Integer WEIGHT_THRESHOLD = 5;
-
     private static final Integer REGION_COST_DIFF = 5;
-
     private static final Integer FRAGILE_ITEM_DIFF = 5;
-
     private static final Integer BASE_ITEM_COST = 5;
+    private static final Integer WEIGHT_COST_DIFF = 10;
 
     public String getShippingCost(ShippingCostDto shippingCostDto) {
         if (shippingCostDto == null) {
@@ -52,27 +48,17 @@ public class New1 {
         final Region region = shippingCostDto.getShippingRegion();
         final int weight = shippingCostDto.getWeight();
         final boolean isFragile = shippingCostDto.getFragile();
+        int cost = BASE_ITEM_COST;
 
-        if (region == Region.EU) {
-            return getEuShippingCost(weight, isFragile);
-        } else {
-            return getInternationalShippingCost(weight, isFragile);
+        if (region != Region.EU) {
+            cost = cost + REGION_COST_DIFF;
         }
-    }
-
-    private int getEuShippingCost(int weight, boolean isFragile) {
-        if (weight < WEIGHT_THRESHOLD) {
-            return isFragile ? EU_LIGHT_FRAGILE.getCost() : EU_LIGHT_NON_FRAGILE.getCost(); // we can also do this.
-        } else {
-            return isFragile ? 20 : 15; // EU_HEAVY_FRAGILE, EU_HEAVY_NON_FRAGILE
+        if (weight >= WEIGHT_THRESHOLD) {
+            cost = cost + WEIGHT_COST_DIFF;
         }
-    }
-
-    private int getInternationalShippingCost(int weight, boolean isFragile) {
-        if (weight < WEIGHT_THRESHOLD) {
-            return isFragile ? 15 : 10;
-        } else {
-            return isFragile ? 25 : 20;
+        if (isFragile) {
+            cost = cost + FRAGILE_ITEM_DIFF;
         }
+        return cost;
     }
 }

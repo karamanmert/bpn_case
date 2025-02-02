@@ -1,7 +1,9 @@
-package prob1_calculate_price_method.old;
+package com.karamanmert.bpn_case.prob1_calculate_price_method.old;
 
-import prob1_calculate_price_method.Order;
-import prob1_calculate_price_method.new1.ProductType;
+import com.karamanmert.bpn_case.prob1_calculate_price_method.Order;
+import com.karamanmert.bpn_case.prob1_calculate_price_method.new1.ProductType;
+
+;
 
 /**
  * @author karamanmert

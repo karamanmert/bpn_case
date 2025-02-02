@@ -1,6 +1,7 @@
-package prob3_invoice_service.new1;
+package com.karamanmert.bpn_case.prob3_invoice_service.new1;
 
-import prob3_invoice_service.old.Invoice;
+
+import com.karamanmert.bpn_case.prob3_invoice_service.Invoice;
 
 /*
       losely coupled sağlandı.

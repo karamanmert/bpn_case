@@ -1,4 +1,4 @@
-package prob5_tax_and_commission_calculation.old;
+package com.karamanmert.bpn_case.prob5_tax_and_commission_calculation.old;
 
 import java.math.BigDecimal;
 
@@ -27,6 +27,10 @@ tax ve comission bilgileri üründen ürüne veya ülkeden ülkeye değişir. bu
 
  ...
  3- strategy pattern + factory pattern kullan.
+
+
+
+----
 
 
 */
