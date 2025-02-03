@@ -28,6 +28,8 @@ public class LiveExchangeRateService implements ExchangeRateService {
     }
 
     // todo: eğer istek attığımız yerden hata alırsak circuit breaker tarzı patternlar kullabiliriz.
+    // todo: status 200 değilse, daha önceden hazırlanan 2-3 fakrlı live exhange apisinden başka birine istek atabiliriz.
+    // todo: en kötü senaryoda usd-eur tarzı aralarındaki fark çok oynamayan birimlerde cacten okunan değerle işlem yapabiliriz.
     private ExchangeRateResponse fetchExchangeRate(Currency from, Currency to) {
         String uri = getUri(from, to);
 
