@@ -10,12 +10,10 @@ import java.math.BigDecimal;
 @Service
 public class LiveExchangeRateService implements ExchangeRateService {
 
-    private final ExchangeRateConfig config;
     private final RestClient restClient;
 
     public LiveExchangeRateService(ExchangeRateConfig config,
                                    RestClient.Builder restClientBuilder) {
-        this.config = config;
         this.restClient = restClientBuilder
                 .baseUrl(config.getBaseUrl())
                 .build();
@@ -27,9 +25,10 @@ public class LiveExchangeRateService implements ExchangeRateService {
         return response.getRates().get(to.name());
     }
 
-    // todo: eğer istek attığımız yerden hata alırsak circuit breaker tarzı patternlar kullabiliriz.
+    // todo: eğer bir schedule job ile db'yi sürekli güncel tutar ve db'den çekersek maliyetli olabilir.
+    // todo: eğer istek attığımız yerden(EXTERNAL API), hata alırsak circuit breaker tarzı patternlar kullabiliriz.
     // todo: status 200 değilse, daha önceden hazırlanan 2-3 fakrlı live exhange apisinden başka birine istek atabiliriz.
-    // todo: en kötü senaryoda usd-eur tarzı aralarındaki fark çok oynamayan birimlerde cacten okunan değerle işlem yapabiliriz.
+    // todo: birden fazla api'a istek atıp, gelen ratelerin ortalamaları ile bir map oluşturup oradan da alınabilir.
     private ExchangeRateResponse fetchExchangeRate(Currency from, Currency to) {
         String uri = getUri(from, to);
 

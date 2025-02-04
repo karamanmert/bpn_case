@@ -21,12 +21,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void processPayment(String accountId, BigDecimal amount) {
         try {
+            // 1- müşteri hesabından para düş
             accountService.debitAccount(accountId, amount);
             log.info("LOG"); // todo: loglama için 7. sorudaki gibi logservice kullanılabilir
 
+            // 2- ödeme hazinesinde takip edilsin.
             treasuryService.registerIncoming(amount);
             log.info("LOG");
 
+            // 3- müşterinin ilgili kredisine (varsa) aktarılsın
             loanService.creditLoan(accountId, amount);
             log.info("LOG");
         } catch (Exception e) {

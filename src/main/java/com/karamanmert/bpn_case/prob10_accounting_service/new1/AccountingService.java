@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-// GENERALLEDGERENTRY'NIN BIR DTO OLDUGU FAR EDILMISTIR.
+// GENERALLEDGERENTRY'NIN BIR DTO OLDUGU FARZ EDILMISTIR.
 @Service
 @RequiredArgsConstructor
 public class AccountingService {
@@ -18,7 +18,8 @@ public class AccountingService {
        validator.validate(entry);
 
         // 2. IFRS kuralı (basit örnek)
-        // todo: pek çok yerde factory ve strategy patter kullandım burada da bunları combine edip kullanabiliriz.
+        // TODO: (IFRS, US GAAP vb.)
+        // todo: pek çok yerde factory ve strategy pattern kullandım burada da bunları combine edip kullanabiliriz. ( type belirtip factory ile o typeları oluşturup sırayla strategy onu çalıştıracak)
         // todo: bu kurallar her zaman sekmeden arka arkaya çalışması gerekiyorsa chain of res. pattern da kullanılabilir.
         /*
         if (entry.isUnderIFRS()) {

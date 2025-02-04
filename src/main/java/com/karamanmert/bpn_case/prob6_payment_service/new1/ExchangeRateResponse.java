@@ -14,7 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Builder
 public  class ExchangeRateResponse {
-    private String base;
+    private String base; // TODO
     private Map<String, BigDecimal> rates;
     private String date;
 }

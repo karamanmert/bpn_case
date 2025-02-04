@@ -10,6 +10,6 @@ import java.math.BigDecimal;
 
 @Builder
 public record PaymentRequest(String cardNumber,
-                             String expiration,
+                             // PaymentType type ??
                              BigDecimal amount) {
 }

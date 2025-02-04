@@ -1,6 +1,5 @@
 package com.karamanmert.bpn_case.prob8_payment_facade.new1;
 
-import com.karamanmert.bpn_case.prob8_payment_facade.new1.repo.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

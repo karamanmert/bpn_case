@@ -10,6 +10,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderMatcher {
 
+    // TODO: Order bir entity olduğu için içerisine business logic yazmak istemedim. ayırdır.
     public boolean isMatch(Order buyOrder, Order sellOrder) {
         return buyOrder.getPrice().compareTo(sellOrder.getPrice()) == 0;
     }

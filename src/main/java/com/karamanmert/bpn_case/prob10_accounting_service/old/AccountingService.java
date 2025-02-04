@@ -39,7 +39,7 @@ public class AccountingService {
         }
 
         // 2. IFRS kuralı (basit örnek)
-        /*
+
         if (entry.isUnderIFRS()) {
             if (entry.getAccountType().equals("EQUITY")
                     && entry.getDebit().compareTo(BigDecimal.valueOf(100000)) > 0) {
@@ -47,8 +47,6 @@ public class AccountingService {
                 throw new IllegalStateException("Equity hesapları IFRS limit aşımı!");
             }
         }
-
-         */
 
         // 3. Logging & Audit
         System.out.println("Posting to ledger: " + entry);

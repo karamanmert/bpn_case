@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreditCardPaymentService implements PaymentService {
 
-    private final FraudDetectionService fraudDetectionService;
+    private final FraudDetectionService fraudDetectionService; // TODO: EĞER işlemler basit ise ve bir bağımlılığı yoksa UTIL olarak tanımlanabilir.
     private final ExternalPaymentGatewayService externalPaymentGatewayService;
     private final AccountingService accountingService;
 

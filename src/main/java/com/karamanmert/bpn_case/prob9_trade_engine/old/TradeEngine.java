@@ -41,10 +41,6 @@ Kodda göstermeyeceğim ama yazayım. entity katmanına @version adı altında b
 2. olarak sync keywordunu koda dahil ederek race condition'a engel olabiliriz. ( bunu uygulayacağım )
 
 3. Lock mekanizması kullanmak. (ReentrantLock) altında bu çözüm de var.
-
-
-
-
  */
 public class TradeEngine {
 

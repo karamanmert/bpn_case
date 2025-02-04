@@ -22,8 +22,7 @@ public class TradeService {
 
     @Transactional
     // synchronized
-    public synchronized void matchOrders(Order order) {
-        final Order incomingOrder = orderService.getOrderByOrderId(order.getId());
+    public synchronized void matchOrders(Order incomingOrder) {
         final List<Order> orders = orderService.getAllOrders();
 
         Optional<Order> existingOrder = orderMatcher.findMatch(incomingOrder, orders);
@@ -48,10 +47,9 @@ public class TradeService {
 
     @Transactional
     // ReentrantLock
-    public void matchOrdersv2(Order order) {
+    public void matchOrdersv2(Order incomingOrder) {
         lock.lock();
         try {
-            final Order incomingOrder = orderService.getOrderByOrderId(order.getId());
             final List<Order> orders = orderService.getAllOrders();
 
             Optional<Order> existingOrder = orderMatcher.findMatch(incomingOrder, orders);
