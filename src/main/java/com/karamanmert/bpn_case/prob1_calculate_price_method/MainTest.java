@@ -23,6 +23,7 @@ public class MainTest {
         PriceStrategy discountStrategy = new DiscountStrategy();
         PriceStrategy taxStrategy = new TaxStrategy();
 
+        // TODO: BURADA FACTORY DE UYGULANABİLİRDİ.
         PriceCalculator priceCalculator = new PriceCalculator(basePriceStrategy);
         priceCalculator.calculate(order);
 
