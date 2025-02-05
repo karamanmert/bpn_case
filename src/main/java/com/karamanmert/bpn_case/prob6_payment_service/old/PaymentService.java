@@ -18,6 +18,12 @@ if elselerden kurtulmak için ise bir her bir birim için bir service oluşturup
 5 10 snde bir cacheden okuyan bir işlemle ilerletebiliriz.
 
 ben burada live bir servis kullanmak istedim. böylece her bir currency tipi için service oluşturmayacağım.
+
+  // todo: eğer bir schedule job ile db'yi sürekli güncel tutar ve db'den çekersek maliyetli olabilir.
+    // todo: eğer istek attığımız yerden(EXTERNAL API), hata alırsak circuit breaker tarzı patternlar kullabiliriz.
+    // todo: status 200 değilse, daha önceden hazırlanan 2-3 fakrlı live exhange apisinden başka birine istek atabiliriz.
+    // todo: birden fazla api'a istek atıp, gelen ratelerin ortalamaları ile bir map oluşturup oradan da alınabilir.
+
  */
 public class PaymentService {
 

@@ -1,0 +1,162 @@
+Tüm işlemler önce gateway'e gelmeli.
+Burada işlemleri takip etmek için trace Id eklenmeli ve loglanmalı.
+responselardan sonra da aynı şekilde kayıt altına alınmalı.
+
+ben işlemlerde genel olarak kısa olsun diye classlar üzerinden service belirttim ama interfaceler üzerinden yapılmalı ve
+dip sağlanmalı.
+
+Genel olarak problemleri gözlemleyebildiğim gibi ilerlettim ama problemlerin devamına/ ihtiyacına göre şekillenebilir.
+
+---
+CEVAP VE AÇIKLAMALARI
+---------------------
+!! NOT: Tüm paketler içerisinde old ve new1 adlı yeni 2 paket bulunuyor.
+old dediğimiz case'in çözülmemiş orijinalini temsil eder.
+new1 dediğimiz case'in çözülmüş yeni halini temsil eder.
+
+Çözümler genel olarak old class içerisinde belirtildi. (şöyle yaptım, böyle yapılmalı, bu da kullanılabilir tarzı..)
+Fakat her bir class veya method'un üstünde veya içinde de todolar veya comment satırları bulunuyor. Onlara da dikkat edebiliriz!
+
+Aşağıda da genel bir yerde yazmış olmak için topladığım cevaplar bulunuyor.
+Ama içerikteki todo ve commentler de önemli!
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+
+PROBLEM 1 - CALCULATE PRICE METHOD
+----------------------------------------------
+1- tek bir method içerisinde 3 farklı işlem yapılıyor. bu 3 işlemi de ayrı methodlarda çözüp buradan çağır.(ilk aşama)
+    daha sonra da bunları ayrı classlarda handle et.
+2- strategy pattern ile ürünün temel ücretinin üzerine yapılacak, olan  + - fiyatlandırmaları hesaplayabiliriz.
+( strategy + factory kullanarak da ihtiyacımız olan objeleri oluşturabiliriz. (burada yapmadım ))
+3- price değeri bigdecimal olmalı ama burada ilerletmeyeceğim.
+4- product isimleri enumda olmalı.
+
+
+
+PROBLEM 2- SHIPPING COST CALCULATOR
+----------------------------------------------
+koşula göre eklenen if elseler var ve kodu karmaşık hale getiriyor.
+tekrarlanan yerler var.
+kodu genişletmek zor ( region değişebilir, currency değişebilir. )
+kodu anlamayı da kısmen zorlaştırıyor.
+burada ilk başta farklı bir şekilde ilerlemiştim ama 2. bakışımda
+ücretlendirmeler arası belirli bir oran olduğunu gördüm ve code'daki gibi son haline çevirdim.
+Mantık şu;
+
+temel ücret:5
+Eğer bölge EU değilse +5
+Eğer ağırlık >= 5 kg ise +10
+Eğer kırılgan ürün ise +5
+
+ayrıca shipping cost da hep usd olmasın istedim. ayarlanabilir olması için ShippingCostUtil'i oluşturdum böylece amount + currency type ile ilerleyebileceğiz.
+
+
+PROBLEM 3- INVOICE SERVICE
+----------------------------------------------
+Bu koddaki problem tek bir db'ye sıkı sıkıya bağlanmadır. ( tighly coupled )
+InvoiceService tamamen SqlDatabase'e bağlı bir classtır.
+Yarın SqlDatabase değil başka bir db kullanmak istersek her yeri yeriden yazmamız gerekir.
+Bu kodu gevşek bağlı ( loosely coupled ) hale getirmemiz lazım.
+
+DIP -> depend on abstraction, not conctre classes.
+Database interface'ini ekledikten sonra kodumuz (Invoice service) artık tek bir sabit class'a bağımlı kalmayacak
+bir abstraction(interface'e) bağlı kalacak. dolayısıyla dip sağlanmış olacak.
++ factory ile de hangisinin objesini üretmemiz gerekiyorsa üretmiş oalcağız.
+
+
+PROBLEM 4- ACCOUNT BALANCE CALCULATION
+----------------------------------------------
+
+float double gibi işlemler binary sistemler üzerinde çalışırlar ve hızlıdırlar. ama Test classında yapılan örnekteki gibi
+beklenmeyen şeyler dönebilirler.
+kesinlik için bigdecimal kullanılmalıdır.
+BigDecimal 10'lu tabanda çalışır. Kesinlik ifade eder ve daha yavaştır.
+
+
+PROBLEM 5- TAX AND COMMISSION CALCULATION
+----------------------------------------------
+
+Tax ve commission için entity tutalım.
+Değerlerdeki değişim oranı az olacağı için bir de cache tutalım ( örnekte kendi cache mekanizmamı oluşturdum içerisinde todolar var)
+Ama redis tarzı cachlerde kullanılabilirdi.
+
+ 2- property dosyalarında belirtilebilir bu oranlar ( yapmadım )
+
+PROBLEM 6- PAYMENT SERVICE
+----------------------------------------------
+ÇÖZÜM
+Bir class'a bağımlı olmamak bir abstraction a bağlı olmak lazım => DIP
+if elselerden kurtulmak için ise bir her bir birim için bir service oluşturup, factory ile nesne üretilip,
+ bir map tutulup , mapte tutulan veya 5. örnekteki gibi
+5 10 snde bir cacheden okuyan bir işlemle ilerletebiliriz.
+
+ben burada live bir servis kullanmak istedim. böylece her bir currency tipi için service oluşturmayacağım.
+
+LiveERService içerisindeki todolar:
+  // todo: eğer bir schedule job ile db'yi sürekli güncel tutar ve db'den çekersek maliyetli olabilir.
+    // todo: eğer istek attığımız yerden(EXTERNAL API), hata alırsak circuit breaker tarzı patternlar kullabiliriz.
+    // todo: status 200 değilse, daha önceden hazırlanan 2-3 fakrlı live exhange apisinden başka birine istek atabiliriz.
+    // todo: birden fazla api'a istek atıp, gelen ratelerin ortalamaları ile bir map oluşturup oradan da alınabilir.
+
+
+
+PROBLEM 7- PAYMENT PROCESSING
+----------------------------------------------
+
+1- Single Res. Princ. ihlal ediyor.
+her bir service'in ayrı bir yerde handle edilip burada interface'e bağımlı kalarak çağrılması gerekiliypr ( + DIP )
+2- İstek bir dto objesine alınmalı (pojo)
+3- FraudDetectionService -> interface tanımlayıp bir strategy pattern ile birden fazla class üzerinden kontrol sağlayabiliriz.
+işlemi kısa tutmak amacıyla class olarak ilerttim.
+4- method adında credit card ödemesi vardı. bunu class'a taşıdım bu class artık kredi kartı ile ödeme yapacak.
+debit ya da bitcoin gibi ayrı kanallar için yeni impl gerekli.
+5- log service'i oluşturup düzgünce loglamak gerekli.
+
+artık testi de kolay. genişletilebilir. srp ve dip'e uygun loosely coupled bir kod oldu.
+
+
+
+PROBLEM 8- PAYMENT FACADE
+----------------------------------------------
+
+tek bir transactional blog'a alamadığımız için veri tutarlılığını sağlamamız lazım.
+SAGA PATTERN -> Orchestrator *** uygulandı. try içerisindeki bir ifade de hata alınırsa tüm servicelerin rollback methodları çağrıldı.
++ DIP için bağımlılıkların abstraction olması lazım.
+
+Hata alan yere, tüm işlemleri geri almadan bir job ile tekrar deneme yapılabilir. ( 1. adım çok uzun sürebilir 2. de hata alırsa 1. yi tekrar  yapmasın uzun sürüyor. Dolayısıyla 2. yi dene gibi )
+
+PROBLEM 9- TRACE ENGINE
+----------------------------------------------
+
+Son maddede belirtildiği gibi, tek sınıfa çok sorumluluk yüklenmiş bundan kurtulmamız gerek.
+İşlemleri thread safe yapmamız gerek.
+Bunu da yapmak için aklıma 2 farklı yol geliyor.
+Birisi db kullanıyorsan OptimisticLock kullanmak, diğeri methoda sync ya da lock eklemek.
+
+1- OptimisticLock'ı uygulamak istedim fakat sorudaki in memory data structure dikkatimi çekti ->
+Ama burada da şöyle bir nokta var. İn memory db h2, redis gibi bir şey ise jpa özelliklerini kullanabiliriz.
+ama benim de 5. soruda yaptığım gibi map ile kendimizin oluşturduğu bir yapı ise bu optimisticlock burada kullanamayız.
+Eğer kullanabileceğimiz bir yapı ise;
+Kodda göstermeyeceğim ama yazayım. entity katmanına @version adı altında bir annotation ekleyerek işleri ilerletebiliriz.
+
+2. olarak sync keywordunu koda dahil ederek race condition'a engel olabiliriz. ( bunu uygulayacağım )
+
+3. Lock mekanizması kullanmak. (ReentrantLock) altında bu çözüm de var.
+
+
+
+
+PROBLEM 10- ACCOUNTING SERVICE
+----------------------------------------------
+
+* SRP uygula. methoddaki her bir yeri ayrı yerlerde handle et.
+*   IFRS, US GAAP tarzı işlemler için factory ve strategy kullanılabilir.
+ // TODO: (IFRS, US GAAP vb.)
+          // todo: pek çok yerde factory ve strategy pattern kullandım burada da bunları combine edip kullanabiliriz. ( type belirtip factory ile o typeları oluşturup sırayla strategy onu çalıştıracak)
+
+* log service yaz.
+
+(classta comment ve todolar var)

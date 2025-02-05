@@ -15,14 +15,15 @@ Aşağıdaki calculatePrice metodu, onlarca satıra yayılmış karmaşık if-el
 hesaplamaları içeriyor. Metodu okumak, anlamak ve bakımını yapmak zor. Nasıl bir çözüm üretirsiniz ?
 
 ÇÖZÜM
-1- tek bir method içerisinde 3 farklı işlem yapılıyor. bu 3 işlemi de ayrı methodlarda çözüp buradan çağır. daha sonra da bunları ayrı classlarda çöz.
-2- price değeri bigdecimal olabilir ama burada ilerletmeyeceğim.
-3- product isimleri enumda olmalı.
-4- sabit stringler en yukarda yazılmalı
+1- tek bir method içerisinde 3 farklı işlem yapılıyor. bu 3 işlemi de ayrı methodlarda çözüp buradan çağır.(ilk aşama)
+    daha sonra da bunları ayrı classlarda handle et.2- strategy pattern ile ürünün temel ücretinin üzerine yapılacak, olan  + - fiyatlandırmaları hesaplayabiliriz.
+( strategy + factory kullanarak da ihtiyacımız olan objeleri oluşturabiliriz. (burada yapmadım ))
+3- price değeri bigdecimal olmalı ama burada ilerletmeyeceğim.
+4- product isimleri enumda olmalı.
  */
 
 
-public class OldVersion {
+public class Old {
 
     public double calculatePrice(Order order) {
         double basePrice = 0.0;

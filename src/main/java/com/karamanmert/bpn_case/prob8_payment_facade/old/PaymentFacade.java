@@ -22,9 +22,9 @@ olmayan hata/rollback yönetimi.
 ÇÖZÜM
 --
 tek bir transactional blog'a alamadığımız için veri tutarlılığını sağlamamız lazım.
-SAGA PATTERN -> Orchestrator ***
+SAGA PATTERN -> Orchestrator *** uygulandı. try içerisindeki bir ifade de hata alınırsa tüm servicelerin rollback methodları çağrıldı.
 + DIP için bağımlılıkların abstraction olması lazım.
-Hata alan yere, tüm işlemleri geri almadan bir job ile tekrar deneme yapılabilir. ( 1. adım çok uzun sürebilir 2. de hata alırsa 1. yi tekrar  yapmasın gibi )
+Hata alan yere, tüm işlemleri geri almadan bir job ile tekrar deneme yapılabilir. ( 1. adım çok uzun sürebilir 2. de hata alırsa 1. yi tekrar  yapmasın uzun sürüyor. Dolayısıyla 2. yi dene gibi )
  */
 public class PaymentFacade {
 

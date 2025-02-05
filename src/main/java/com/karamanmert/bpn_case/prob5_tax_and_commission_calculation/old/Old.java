@@ -19,17 +19,12 @@ tax ve comission bilgileri üründen ürüne veya ülkeden ülkeye değişir. bu
  + bu taxrate gibi entity içerisindeki değerler sabit olacağı için sık kullanılanları
  redis tarzı bir cache sisteminden okuyabilir veya yazabiliriz.
 
-
-
  2- property dosyalarında belirtilebilir bu oranlar
-
-
 
  ...
  3- strategy pattern + factory pattern kullan.
 
-
-
+ 
 ----
 
 
